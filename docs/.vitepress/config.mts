@@ -5,6 +5,9 @@ const owner = process.env.GITHUB_REPOSITORY?.split('/')[0]
 const isUserSite = repo && owner && repo.toLowerCase() === `${owner.toLowerCase()}.github.io`
 const base = process.env.GITHUB_ACTIONS === 'true' && repo && !isUserSite ? `/${repo}/` : '/'
 
+const creamTheme = `
+:root{--vp-c-indigo-1:#8b6914!important;--vp-c-indigo-2:#c7840c!important;--vp-c-indigo-3:#d9a500!important;--vp-c-indigo-soft:rgba(199,132,12,.12)!important;--vp-c-brand-1:#8b6914!important;--vp-c-brand-2:#c7840c!important;--vp-c-brand-3:#d9a500!important;--vp-c-brand-soft:rgba(199,132,12,.12)!important;--vp-c-bg:#faf7f0!important;--vp-c-bg-alt:#f5efe0!important;--vp-c-bg-elv:#ffffff!important;--vp-c-bg-soft:#f0eada!important;--vp-c-divider:#e5dece!important;--vp-c-border:#e5dece!important;--vp-c-text-1:#1f1d17!important;--vp-c-text-2:#5c5744!important;--vp-c-text-3:#9e9784!important;--vp-c-tip-1:#8b6914!important;--vp-c-tip-2:#c7840c!important;--vp-c-tip-3:#faf7f0!important;--vp-c-tip-soft:rgba(199,132,12,.12)!important;--vp-c-warning-1:#92400e!important;--vp-c-warning-2:#b45309!important;--vp-c-warning-3:#fef3c7!important;--vp-c-warning-soft:rgba(180,83,9,.1)!important;--vp-c-default-1:#5c5744!important;--vp-c-default-2:#9e9784!important;--vp-c-home-hero-name-color:#8b6914!important}`
+
 export default defineConfig({
   lang: 'zh-CN',
   title: 'nano-SGLang',
@@ -16,6 +19,9 @@ export default defineConfig({
     ['meta', { name: 'theme-color', content: '#faf7f0' }],
     ['meta', { name: 'color-scheme', content: 'light' }]
   ],
+  transformHtml(code) {
+    return code.replace('</head>', `<style>${creamTheme}</style></head>`)
+  },
   themeConfig: {
     logo: '/illustrations/logo.svg',
     nav: [
