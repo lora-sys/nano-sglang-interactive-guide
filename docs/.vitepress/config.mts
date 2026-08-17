@@ -13,8 +13,8 @@ export default defineConfig({
   cleanUrls: true,
   lastUpdated: true,
   head: [
-    ['meta', { name: 'theme-color', content: '#0a0a0a' }],
-    ['meta', { name: 'color-scheme', content: 'dark light' }]
+    ['meta', { name: 'theme-color', content: '#faf7f0' }],
+    ['meta', { name: 'color-scheme', content: 'light' }]
   ],
   themeConfig: {
     logo: '/illustrations/logo.svg',
