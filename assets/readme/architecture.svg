@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="at ad">
+  <title id="at">nano-SGLang 交互架构</title>
+  <desc id="ad">Trace Contract flowing from NanoSGLangRuntime to Trace Player, State Lens, A-B Diff, and Source Lens, with external trace import.</desc>
+  <rect width="1200" height="300" rx="24" fill="#0b0b0b"/>
+  <text x="56" y="42" fill="#ffca28" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="14" font-weight="800" letter-spacing="2">ARCHITECTURE</text>
+
+  <!-- Runtime box -->
+  <g transform="translate(56 80)">
+    <rect width="200" height="170" rx="16" fill="#1c1806" stroke="#4d4216" stroke-width="1.5"/>
+    <text x="100" y="32" text-anchor="middle" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13" font-weight="700">NanoSGLangRuntime</text>
+    <line x1="20" y1="44" x2="180" y2="44" stroke="#4d4216" stroke-width="0.8"/>
+    <!-- Sub components -->
+    <rect x="20" y="58" width="160" height="32" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+    <text x="100" y="79" text-anchor="middle" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">TokenizerManager</text>
+    <rect x="20" y="96" width="160" height="32" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+    <text x="100" y="117" text-anchor="middle" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">Scheduler</text>
+    <rect x="20" y="134" width="160" height="32" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+    <text x="100" y="155" text-anchor="middle" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">ModelRunner</text>
+    <rect x="20" y="172" width="160" height="32" rx="8" fill="#111" stroke="#333" stroke-width="1"/>
+    <text x="100" y="193" text-anchor="middle" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">DetokenizerManager</text>
+  </g>
+
+  <!-- Arrow: Runtime → Contract -->
+  <path d="M268 165 H316" stroke="#ffca28" stroke-width="2.5" fill="none"/>
+  <path d="M308 159 L316 165 L308 171" stroke="#ffca28" stroke-width="2.5" fill="none"/>
+
+  <!-- Trace Contract (center hub) -->
+  <g transform="translate(320 120)">
+    <rect width="200" height="90" rx="16" fill="#211c08" stroke="#ffca28" stroke-width="1.8"/>
+    <text x="100" y="42" text-anchor="middle" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="15" font-weight="800">Trace Contract</text>
+    <text x="100" y="64" text-anchor="middle" fill="#9e9369" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="11">统一事件结构 / 版本校验</text>
+  </g>
+
+  <!-- Arrow: Contract → Tools -->
+  <path d="M522 150 H570" stroke="#ffca28" stroke-width="2" fill="none"/>
+  <path d="M562 144 L570 150 L562 156" stroke="#ffca28" stroke-width="2" fill="none"/>
+
+  <!-- Four tool boxes -->
+  <g transform="translate(570 60)">
+    <!-- Trace Player -->
+    <g transform="translate(0 0)">
+      <rect width="140" height="78" rx="14" fill="#111" stroke="#333" stroke-width="1.2"/>
+      <text x="70" y="32" text-anchor="middle" fill="#f3f3f3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="15" font-weight="700">Trace Player</text>
+      <text x="70" y="52" text-anchor="middle" fill="#777" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="11">Step / Play / Source / Diff</text>
+    </g>
+    <!-- State Lens -->
+    <g transform="translate(158 0)">
+      <rect width="140" height="78" rx="14" fill="#111" stroke="#333" stroke-width="1.2"/>
+      <text x="70" y="32" text-anchor="middle" fill="#f3f3f3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="15" font-weight="700">State Lens</text>
+      <text x="70" y="52" text-anchor="middle" fill="#777" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="11">KV Cache / Batch</text>
+    </g>
+    <!-- A-B Diff -->
+    <g transform="translate(316 0)">
+      <rect width="140" height="78" rx="14" fill="#111" stroke="#333" stroke-width="1.2"/>
+      <text x="70" y="32" text-anchor="middle" fill="#f3f3f3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="15" font-weight="700">A-B Diff</text>
+      <text x="70" y="52" text-anchor="middle" fill="#777" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="11">Parameter comparison</text>
+    </g>
+    <!-- Source Lens -->
+    <g transform="translate(474 0)">
+      <rect width="140" height="78" rx="14" fill="#111" stroke="#333" stroke-width="1.2"/>
+      <text x="70" y="32" text-anchor="middle" fill="#f3f3f3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="15" font-weight="700">Source Lens</text>
+      <text x="70" y="52" text-anchor="middle" fill="#777" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="11">Jump to v0.5.17 source</text>
+    </g>
+  </g>
+
+  <!-- Import external trace (top-right) -->
+  <g transform="translate(840 90)">
+    <path d="M0 0 V-40" stroke="#555" stroke-width="1.5" fill="none" stroke-dasharray="5 3"/>
+    <path d="M-6 -46 L0 -40 L6 -46" stroke="#555" stroke-width="1.5" fill="none"/>
+    <rect width="220" height="52" rx="12" fill="#171717" stroke="#555" stroke-width="1.2"/>
+    <text x="110" y="22" text-anchor="middle" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">Import external JSON trace</text>
+    <text x="110" y="40" text-anchor="middle" fill="#777" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="10">replay real GPU captures</text>
+  </g>
+
+  <!-- Bottom tagline -->
+  <text x="56" y="278" fill="#666" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="13">Concept Runtime — does not execute real SGLang, GPU kernels, or CUDA Graph</text>
+</svg>

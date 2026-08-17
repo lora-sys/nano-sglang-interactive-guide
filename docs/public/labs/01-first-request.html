@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="lab.css"><title>01 · First Request Trace</title></head>
+<body><main class="shell">
+  <div class="top"><div><div class="kicker">NANO-SGLANG LAB</div><div class="title">01 · One Request, One Trace</div><div class="sub">真正运行浏览器里的 NanoSGLangRuntime；动画只是 trace 的一个视图。</div></div><div class="badge">CONCEPT RUNTIME · NO GPU</div></div>
+  <div class="modebar"><div class="modes"><span class="pill active">Concept Runtime</span><span class="pill">Real Trace Import</span></div><span class="muted"><span class="status-dot"></span>trace contract v0.2</span></div>
+  <div class="grid">
+    <section class="panel"><h3>真正传给 Runtime 的 config</h3><textarea id="config" class="code">{
+  "prompt": "You are a systems tutor. Explain KV cache.",
+  "maxNewTokens": 5,
+  "cachedPrefixTokens": 4
+}</textarea><div class="row" style="margin-top:10px"><button class="btn" id="run">▶ Run A</button><button class="btn secondary" id="saveA">Save as A</button><button class="btn secondary" id="reset">Reset</button></div><div class="mini-code" style="margin-top:10px">const runtime = new NanoSGLangRuntime()
+const result = runtime.generate(config)
+player.load(result.events)
+player.play()</div><div class="hint">没有 eval。textarea 只解析 JSON；真正执行的是上面的 Runtime 方法。</div></section>
+    <section class="panel"><h3>Request Path</h3><div class="flow" id="path"><div class="node" data-component="api">API</div><span class="arrow">→</span><div class="node" data-component="tokenizer">Tokenize</div><span class="arrow">→</span><div class="node" data-component="radix">Radix</div><span class="arrow">→</span><div class="node" data-component="scheduler">Schedule</div><span class="arrow">→</span><div class="node" data-component="model_runner">Model</div><span class="arrow">→</span><div class="node" data-component="detokenizer">Stream</div></div><div class="metrics"><div class="metric"><b id="inTok">0</b><span>prompt tokens*</span></div><div class="metric"><b id="saved">0</b><span>prefix reused*</span></div><div class="metric"><b id="steps">0</b><span>generated tokens</span></div></div><div class="source-line">SOURCE <a id="source" target="_blank" rel="noreferrer">—</a></div><div class="hint">* whitespace teaching tokenizer；用于状态变化，不是模型真实 tokenizer。</div></section>
+  </div>
+  <div class="grid" style="margin-top:12px">
+    <section class="panel"><h3>Event Trace</h3><div class="trace-toolbar"><button class="btn secondary" id="play">Play</button><button class="btn secondary" id="step">Step</button><button class="btn secondary" id="rewind">Reset trace</button></div><div id="trace" class="trace"></div></section>
+    <section class="panel"><h3>Run A → Run B → Diff</h3><div id="diff" class="diff"><div class="event">先 Save as A，然后改 JSON 再 Run，即可比较因果变化。</div></div><div class="file-drop" style="margin-top:12px"><strong>Real Trace Import</strong><br>选择遵循 trace contract 的 JSON。我们不内置伪造的“真实 GPU trace”。<input id="traceFile" type="file" accept="application/json,.json" style="margin-top:8px"></div><div id="importStatus" class="hint"></div></section>
+  </div>
+  <div class="footer">Concept Runtime 解释机制；Real Trace 必须来自真实采集并带环境证据。</div>
+</main>
+<script type="module">
+import { NanoSGLangRuntime } from '../runtime/nano-runtime.js'
+import { TracePlayer, renderMetricDiff, loadTraceFile } from '../runtime/trace-player.js'
+const runtime = new NanoSGLangRuntime()
+const configEl = document.getElementById('config')
+const traceEl = document.getElementById('trace')
+const diffEl = document.getElementById('diff')
+const sourceEl = document.getElementById('source')
+const player = new TracePlayer({ traceEl, pathEl: document.getElementById('path'), sourceEl, speed: 120 })
+let current = null, baseline = null
+function parseConfig(){ const v = JSON.parse(configEl.value); return { prompt:String(v.prompt ?? ''), maxNewTokens:Number(v.maxNewTokens ?? 5), cachedPrefixTokens:Number(v.cachedPrefixTokens ?? 0) } }
+function renderMetrics(result){ document.getElementById('inTok').textContent=result.metrics.prompt_tokens;document.getElementById('saved').textContent=result.metrics.matched_prefix_tokens;document.getElementById('steps').textContent=result.metrics.generated_tokens }
+function run(){ try{ current=runtime.generate(parseConfig());renderMetrics(current);player.load(current.events);player.play();if(baseline)renderMetricDiff(diffEl,baseline.metrics,current.metrics,{a:'A',b:'B'}) }catch(e){traceEl.replaceChildren();const row=document.createElement('div');row.className='event';row.textContent='Config error: '+e.message;traceEl.append(row)} }
+document.getElementById('run').onclick=run
+document.getElementById('saveA').onclick=()=>{ if(!current)run();baseline=current;{const n=document.createElement('div');n.className='event';n.textContent='A 已保存。现在改 config，再 Run B。';diffEl.replaceChildren(n)} }
+document.getElementById('play').onclick=()=>player.play();document.getElementById('step').onclick=()=>player.step();document.getElementById('rewind').onclick=()=>player.reset()
+document.getElementById('reset').onclick=()=>{configEl.value=`{\n  "prompt": "You are a systems tutor. Explain KV cache.",\n  "maxNewTokens": 5,\n  "cachedPrefixTokens": 4\n}`;baseline=null;run()}
+document.getElementById('traceFile').onchange=async e=>{const status=document.getElementById('importStatus');try{const file=e.target.files?.[0];if(!file)return;const imported=await loadTraceFile(file);player.load(imported.events);player.play();status.textContent=`已导入 ${imported.events.length} events。请自己确认它的采集环境与 provenance。`}catch(err){status.textContent='导入失败：'+err.message}}
+run()
+</script></body></html>

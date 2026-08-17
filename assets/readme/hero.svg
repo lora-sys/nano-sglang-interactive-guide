@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="ht hd">
+  <title id="ht">nano-SGLang — 交互式读懂 SGLang Runtime</title>
+  <desc id="hd">Hero showing the project name and the Run → Trace → Diff → Source interactive learning pipeline.</desc>
+  <rect width="1200" height="340" rx="26" fill="#0b0b0b"/>
+  <rect x="56" y="0" width="1088" height="3" fill="#ffca28" opacity="0.45"/>
+
+  <!-- Left: Title block -->
+  <g id="title-block" transform="translate(56 56)">
+    <rect x="0" y="0" width="104" height="26" rx="6" fill="#1c1806" stroke="#4d4216" stroke-width="1.2"/>
+    <text x="52" y="17" text-anchor="middle" fill="#ffca28" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="11" font-weight="800" letter-spacing="1.5">TUTORIAL</text>
+
+    <text x="0" y="62" fill="#f3f3f3" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="52" font-weight="800">nano-SGLang</text>
+    <text x="0" y="94" fill="#bbb" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="20" font-weight="400">交互式读懂 SGLang Runtime</text>
+
+    <line x1="0" y1="114" x2="460" y2="114" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text x="0" y="140" fill="#999" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="14">
+      <tspan x="0" dy="0">13 章中文教程 + 13 个纯浏览器互动实验 + 源码锚定</tspan>
+      <tspan x="0" dy="20">SGLang v0.5.17。在页面中运行模拟 Runtime，逐步拆解每一步。</tspan>
+    </text>
+
+    <g transform="translate(0 188)">
+      <rect x="0" y="0" width="132" height="28" rx="7" fill="#111" stroke="#333" stroke-width="1"/>
+      <text x="14" y="19" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">13 chapters</text>
+      <rect x="144" y="0" width="140" height="28" rx="7" fill="#111" stroke="#333" stroke-width="1"/>
+      <text x="158" y="19" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">13 browser labs</text>
+      <rect x="296" y="0" width="168" height="28" rx="7" fill="#111" stroke="#333" stroke-width="1"/>
+      <text x="310" y="19" fill="#ccc" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">pinned v0.5.17</text>
+      <rect x="476" y="0" width="112" height="28" rx="7" fill="#1c1806" stroke="#4d4216" stroke-width="1"/>
+      <text x="490" y="19" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="12">open source</text>
+    </g>
+  </g>
+
+  <!-- Right: Pipeline -->
+  <g id="pipeline" transform="translate(580 72)">
+    <!-- Run -->
+    <g transform="translate(0 0)">
+      <rect width="124" height="88" rx="16" fill="#1c1806" stroke="#4d4216" stroke-width="1.5"/>
+      <rect x="12" y="16" width="100" height="54" rx="9" fill="#0b0b0b" stroke="#2a2410" stroke-width="1"/>
+      <text x="62" y="54" text-anchor="middle" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">Run</text>
+    </g>
+    <path d="M130 44 H158" stroke="#ffca28" stroke-width="2" fill="none"/>
+    <path d="M150 38 L158 44 L150 50" stroke="#ffca28" stroke-width="2" fill="none"/>
+
+    <!-- Trace -->
+    <g transform="translate(162 0)">
+      <rect width="124" height="88" rx="16" fill="#1c1806" stroke="#4d4216" stroke-width="1.5"/>
+      <rect x="12" y="16" width="100" height="54" rx="9" fill="#0b0b0b" stroke="#2a2410" stroke-width="1"/>
+      <text x="62" y="54" text-anchor="middle" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">Trace</text>
+    </g>
+    <path d="M292 44 H320" stroke="#ffca28" stroke-width="2" fill="none"/>
+    <path d="M312 38 L320 44 L312 50" stroke="#ffca28" stroke-width="2" fill="none"/>
+
+    <!-- Diff -->
+    <g transform="translate(324 0)">
+      <rect width="124" height="88" rx="16" fill="#1c1806" stroke="#4d4216" stroke-width="1.5"/>
+      <rect x="12" y="16" width="100" height="54" rx="9" fill="#0b0b0b" stroke="#2a2410" stroke-width="1"/>
+      <text x="62" y="54" text-anchor="middle" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">Diff</text>
+    </g>
+    <path d="M454 44 H482" stroke="#ffca28" stroke-width="2" fill="none"/>
+    <path d="M474 38 L482 44 L474 50" stroke="#ffca28" stroke-width="2" fill="none"/>
+
+    <!-- Source -->
+    <g transform="translate(486 0)">
+      <rect width="124" height="88" rx="16" fill="#1c1806" stroke="#4d4216" stroke-width="1.5"/>
+      <rect x="12" y="16" width="100" height="54" rx="9" fill="#0b0b0b" stroke="#2a2410" stroke-width="1"/>
+      <text x="62" y="54" text-anchor="middle" fill="#ffca28" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="18" font-weight="700">Source</text>
+    </g>
+
+    <!-- Tagline -->
+    <text x="310" y="130" text-anchor="middle" fill="#666" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif" font-size="12">Trace Studio 消费同一份 Trace Contract</text>
+  </g>
+</svg>

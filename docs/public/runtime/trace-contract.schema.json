@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:nano-sglang:trace-contract:0.2.0",
+  "title": "nano-SGLang Trace Contract",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["t", "request_id", "component", "event"],
+    "properties": {
+      "trace_version": { "type": "string" },
+      "kind": { "enum": ["concept", "real", "imported"] },
+      "t": { "type": "number", "minimum": 0 },
+      "request_id": { "type": "string" },
+      "component": { "type": "string" },
+      "event": { "type": "string" },
+      "phase": { "type": "string" },
+      "message": { "type": "string" },
+      "state": { "type": "object" },
+      "metrics": { "type": "object" },
+      "source": { "type": "string" }
+    }
+  }
+}
