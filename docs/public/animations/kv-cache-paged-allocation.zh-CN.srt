@@ -1,0 +1,43 @@
+1
+00:00:00,000 --> 00:00:08,000
+每生成一个新 token，模型都需要访问历史 token 的 K 和 V。
+KV cache 把这些历史结果保存在 GPU memory 中。
+
+2
+00:00:08,000 --> 00:00:17,000
+但请求长度不同、会增长也会结束，
+内存不能按一条无限连续数组来管理。
+
+3
+00:00:17,000 --> 00:00:28,280
+Paged-style KV cache 把逻辑 token 序列和 physical block 解耦。
+请求看到连续序列，底层 allocator 则按页分配和回收。
+
+4
+00:00:28,280 --> 00:00:36,700
+设 sequence length 是十八，block size 是四。
+allocator 需要分配 ceil 十八除以四，也就是五个 physical blocks。
+
+5
+00:00:36,700 --> 00:00:45,000
+总 capacity 是二十个 slots，
+最后两个 slots 是内部碎片。
+
+6
+00:00:45,000 --> 00:00:54,920
+把 block size 改大，block 数量减少，但尾部碎片可能增加。
+把 block size 改小，回收更细，但管理次数更多。
+
+7
+00:00:54,920 --> 00:01:02,500
+所以 KV allocator 不只是一个后台细节。
+可用 physical blocks 决定 Scheduler 还能接纳多少 token 和 request。
+
+8
+00:01:02,500 --> 00:01:11,200
+prefix reuse、引用计数和回收都会改变可用容量。
+
+9
+00:01:11,200 --> 00:01:20,200
+动画中的 block table、capacity 和碎片是概念化代码锚点，
+不等同于真实 backend 布局或性能基准。

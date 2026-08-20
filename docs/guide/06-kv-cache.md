@@ -6,6 +6,16 @@ Autoregressive decode 每生成一个新 token，都需要访问之前 token 的
 
 问题变成：不同请求长度不同、不断增长、不断结束——怎么管理这块动态内存？
 
+## 先看动画：逻辑 token 与 physical KV pages 如何解耦
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/kv-cache-paged-allocation.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/kv-cache-paged-allocation.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 block table、capacity、内部碎片和 admission 关系是**概念化代码锚点，不等同于逐行源码、具体 backend 布局或性能基准**。它强调：可用 physical blocks 约束 Scheduler 还能接纳的 token 与请求数量。
+
 <HtmlLab src="/labs/06-kv-cache.html" title="Lab 06 · KV Block Allocator" :height="610" />
 
 ## 从“连续大数组”切到“token/block 映射”

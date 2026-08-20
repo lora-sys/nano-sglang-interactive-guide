@@ -39,3 +39,7 @@
 ## 首批原理动画：Speculative Decoding
 
 `/animations/speculative-decoding-accepted-prefix.mp4` 已完成 1080p60 定稿，含普通话中文旁白、内嵌中文字幕和独立 SRT。三场动画解释 draft proposal、target batch verify、d3 首次拒绝使 accepted prefix 停在 d1/d2，以及低 acceptance 下 draft 成本可能无法收回的收益边界。低画质视觉总时长为 74.465s，三段旁白总时长为 74.320s，误差 0.145s；代表帧审阅确认 token 卡片、拒绝边界与对比面板均清晰无溢出。第 10 章已嵌入动画与字幕轨，`npm run check` 在嵌入后通过。
+
+## 下一波原理动画：KV Cache 分页分配
+
+`/animations/kv-cache-paged-allocation.mp4` 已完成 1080p60 定稿，包含普通话中文旁白、内嵌 `mov_text` 中文字幕和独立 SRT。三场动画展示逻辑 sequence 与 physical KV page 的解耦、`sequence=18` 与 `block_size=4` 时的 `ceil(18/4)=5`、`capacity=20` 和 `unused=2`，以及可用 physical blocks 如何成为 Scheduler admission constraint。低画质总视觉时长为 80.265s，三段实测旁白总时长为 80.200s，误差 0.065s；代表帧审阅确认中文排版、分页网格、容量公式和 admission 关系均清晰无溢出。第 06 章嵌入视频与字幕轨后，`npm run check` 通过。
