@@ -165,3 +165,7 @@ CPU 变为 10ms，GPU 为 4ms；红色瓶颈从 GPU 翻转到 CPU。强调 overl
 ## 旁白与字幕原则
 
 旁白使用普通话、清晰克制的技术讲解语气，不把变量或核心结论念得过快。字幕按场景边界手工标注，使用单行或双行短句；避免尝试调用耗尽额度的自动转写服务。旁白先生成，再根据实际音频时长统一调整各场持续时间和字幕时间轴。
+
+## 下一波准备：06 · KV Cache 分页分配
+
+KV Cache 动画采用三段普通话旁白，总时长 **80.20 秒**。`scene1_paging.wav` 为 28.28 秒，解释逻辑序列与 physical block 的解耦；`scene2_blocks.wav` 为 26.64 秒，推导 `ceil(18/4)=5`、capacity=20 与 2 个内部碎片；`scene3_admission.wav` 为 25.28 秒，连接 allocator 可用 block、prefix reuse、回收与 Scheduler admission。后续视频实现必须以这些实测时长作为三场 ManimCE 场景的同步合同。
