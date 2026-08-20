@@ -43,3 +43,9 @@
 ## 下一波原理动画：KV Cache 分页分配
 
 `/animations/kv-cache-paged-allocation.mp4` 已完成 1080p60 定稿，包含普通话中文旁白、内嵌 `mov_text` 中文字幕和独立 SRT。三场动画展示逻辑 sequence 与 physical KV page 的解耦、`sequence=18` 与 `block_size=4` 时的 `ceil(18/4)=5`、`capacity=20` 和 `unused=2`，以及可用 physical blocks 如何成为 Scheduler admission constraint。低画质总视觉时长为 80.265s，三段实测旁白总时长为 80.200s，误差 0.065s；代表帧审阅确认中文排版、分页网格、容量公式和 admission 关系均清晰无溢出。第 06 章嵌入视频与字幕轨后，`npm run check` 通过。
+
+## 第二波原理动画与预测闭环：Structured Outputs
+
+`/animations/structured-output-grammar-mask.mp4` 已完成 1080p60 定稿，包含普通话中文旁白、内嵌 `mov_text` 中文字幕和独立 `structured-output-grammar-mask.zh-CN.srt`。三场 ManimCE 动画依次解释 `logits → grammar mask → sampler` 的处理次序、JSON FSM q-state 如何让 allowed set 随 token 推进而变化，以及 grammar 仅删除非法路径、并不替代 logits 或 sampling 的职责边界。低画质总视觉时长为 71.265s，三段实测旁白总时长为 71.080s，误差 0.185s；最终封装视频为 71.067s，代表帧审阅确认 pipeline、allowed set、红色屏蔽标记与边界对比均清晰、无溢出。
+
+第 08 章在互动实验前嵌入本地视频和独立字幕轨，并以醒目引用说明 FSM state、allowed set 和 token 标记均是**概念化代码锚点，不等同于逐行源码或真实 grammar backend**。`/labs/08-structured-output.html` 同时重构为预测→运行→解释闭环：默认任务固定在 JSON q3（布尔值位置），学习者先预测 allowed token 数；运行共享 `NanoSGLangRuntime.grammarMask()` 后页面显示 `true`、`false`、`allowed_candidates=2` 与其余被屏蔽的教学候选；核对区进一步说明 grammar 先掩蔽非法 logits，合法候选仍由模型概率和 sampler 决定。JSON q0 与 enum q0 提供可重置的反事实任务，且所有旧状态、预测和事件轨迹在切换时清空。资源嵌入和实验重构后，`npm run check` 通过。

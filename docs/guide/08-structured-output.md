@@ -6,6 +6,16 @@
 
 SGLang 从早期工作开始就把 structured generation 作为重要能力，当前 runtime 也有独立 constrained/grammar backend。
 
+## 先看动画：Grammar Mask 是 decoding pipeline 的约束层
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/structured-output-grammar-mask.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/structured-output-grammar-mask.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 FSM state、allowed set 和 token 标记是**概念化代码锚点，不等同于逐行源码或真实 grammar backend**。它强调的关键路径是：`logits → grammar mask → sampler`，grammar 只删除非法路径，不替代模型概率。
+
 <HtmlLab src="/labs/08-structured-output.html" title="Lab 08 · Grammar Mask" :height="620" />
 
 ## 一步一步看约束发生在哪里
