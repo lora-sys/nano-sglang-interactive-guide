@@ -35,3 +35,7 @@
 ## 首批原理动画：Chunked Prefill
 
 `/animations/chunked-prefill-scheduler-boundaries.mp4` 已完成 1080p60 定稿，附普通话中文旁白、内嵌字幕和独立 SRT。动画通过长 2048-token Prefill、四个 512-token chunk 与 Decode peer turn、再到两个 1024-token chunk 的反事实，解释 chunk size 改变的是重新调度边界而非总 token。低画质总视觉时长为 80.530s，三段实测旁白总时长为 80.280s，误差 0.250s。第 07 章已嵌入本地视频与字幕轨；加入资源后，`npm run check` 通过。
+
+## 首批原理动画：Speculative Decoding
+
+`/animations/speculative-decoding-accepted-prefix.mp4` 已完成 1080p60 定稿，含普通话中文旁白、内嵌中文字幕和独立 SRT。三场动画解释 draft proposal、target batch verify、d3 首次拒绝使 accepted prefix 停在 d1/d2，以及低 acceptance 下 draft 成本可能无法收回的收益边界。低画质视觉总时长为 74.465s，三段旁白总时长为 74.320s，误差 0.145s；代表帧审阅确认 token 卡片、拒绝边界与对比面板均清晰无溢出。第 10 章已嵌入动画与字幕轨，`npm run check` 在嵌入后通过。

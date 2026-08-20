@@ -4,6 +4,16 @@
 
 标准 decode 每一步都让大模型 forward 一次，只拿一个 token。Speculative Decoding 的想法是：先用更便宜的 draft 方法提出多个 token，再让 target model 用更少的昂贵步骤批量验证。
 
+## 先看动画：收益来自连续 accepted prefix，而不是单点命中计数
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/speculative-decoding-accepted-prefix.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/speculative-decoding-accepted-prefix.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 draft token、接受标记和成本对比是**概念化代码锚点，不等同于逐行源码、真实模型或性能基准**。它强调的状态规则是：target batch verify 后，只能沿首个拒绝点之前的连续 accepted prefix 推进。
+
 <HtmlLab src="/labs/10-speculative-decoding.html" title="Lab 10 · Draft & Verify" :height="620" />
 
 ## 关键不是“draft 越多越快”
