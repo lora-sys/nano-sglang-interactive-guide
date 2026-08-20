@@ -30,7 +30,17 @@ print(r.choices[0].message.content)
 
 页面下面的代码不是在浏览器里偷偷装 SGLang。它是一个**可执行的 Nano Runtime 概念模型**：你修改 prompt、`max_new_tokens` 和 `cached_prefix_tokens`，点击 Run，它会生成一串和真实 runtime 阶段对应的教学 trace event。这里的 tokenizer 仍是轻量近似，但 cache hit 不再凭空猜百分比，而由你显式指定。
 
-<HtmlLab src="/labs/01-first-request.html" title="Lab 01 · Run a request" :height="640" />
+## 先看动画：一条 request 如何变成流式输出
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/runtime-lifecycle-request-trace.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/runtime-lifecycle-request-trace.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 request、batch、字段和角色是**概念化代码锚点，不等同于逐行源码、真实 GPU trace 或性能基准**。它强调的路径是：`text + sampling params → tokenized request → scheduler decision → model forward → token stream`。
+
+<HtmlLab src="/labs/01-first-request.html" title="Lab 01 · Run a request" :height="700" />
 
 ## 一条请求至少经过哪些边界？
 

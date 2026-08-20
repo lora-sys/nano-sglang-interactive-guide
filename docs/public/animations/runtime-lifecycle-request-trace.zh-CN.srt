@@ -1,0 +1,23 @@
+1
+00:00:00,000 --> 00:00:09,000
+一条请求进入 serving runtime 时，先不是 GPU tensor，也不是 batch。
+
+2
+00:00:09,000 --> 00:00:18,000
+它从文本和采样参数开始，被规范化并 tokenized，成为可调度的 request state。
+
+3
+00:00:18,000 --> 00:00:26,080
+哪一层还在处理外部文本，哪一层开始决定执行？沿着这条边界读源码，更容易建立方向感。
+
+4
+00:00:26,080 --> 00:00:36,000
+Scheduler 接过 tokenized request 后，维护 waiting、running、prefix 和 token/KV budget，并形成这一轮的 batch 决策。
+
+5
+00:00:36,000 --> 00:00:46,000
+随后 ModelRunner 消费 device-ready forward metadata，完成模型执行与 KV 写入。
+
+6
+00:00:46,000 --> 00:00:56,920
+生成的 token ids 再交给 Detokenizer，变成增量文本并流回 API。控制状态、执行 metadata 和输出文本在不同角色间交接。

@@ -3,6 +3,7 @@
 <body><main class="shell">
   <div class="top"><div><div class="kicker">NANO-SGLANG LAB</div><div class="title">01 · One Request, One Trace</div><div class="sub">真正运行浏览器里的 NanoSGLangRuntime；动画只是 trace 的一个视图。</div></div><div class="badge">CONCEPT RUNTIME · NO GPU</div></div>
   <div class="modebar"><div class="modes"><span class="pill active">Concept Runtime</span><span class="pill">Real Trace Import</span></div><span class="muted"><span class="status-dot"></span>trace contract v0.2</span></div>
+  <div class="code-anchor"><b>概念化代码锚点（不等同于逐行源码）</b>浏览器中的 `NanoSGLangRuntime.generate()` 产生可审阅的教学事件序列；它帮助定位 API、tokenize、radix、schedule、forward 与 stream 的状态边界，不代表真实 GPU trace 或性能测量。</div>
   <div class="grid">
     <section class="panel"><h3>真正传给 Runtime 的 config</h3><textarea id="config" class="code">{
   "prompt": "You are a systems tutor. Explain KV cache.",

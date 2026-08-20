@@ -4,7 +4,7 @@
 
 单卡理解完以后，不要把“多卡”只理解成 tensor parallel。不同 parallelism 拆的是不同维度。
 
-<HtmlLab src="/labs/12-scale-out.html" title="Lab 12 · Parallelism Planner" :height="650" />
+<HtmlLab src="/labs/12-scale-out.html" title="Lab 12 · Parallelism Planner" :height="790" />
 
 ## 四个最常见的视角
 

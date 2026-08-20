@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:10,000
+一条请求刚进入 SGLang 时，它还是一个 Req，保存输入、采样参数和生命周期状态。
+
+2
+00:00:10,000 --> 00:00:21,000
+Scheduler 关心谁在等待、谁能运行、谁命中了 prefix，以及本轮 token budget 是否足够。
+
+3
+00:00:21,000 --> 00:00:31,960
+重点是先保留可变化的 CPU 控制状态，而不是把执行 tensor 都塞进每个 request。
+
+4
+00:00:31,960 --> 00:00:41,000
+当 Scheduler 决定这一轮哪些请求一起执行，多个 Req 被组织成 ScheduleBatch。
+
+5
+00:00:41,000 --> 00:00:50,000
+它记录 requests、forward mode、sequence lengths、prefix lengths 和 token budget。
+
+6
+00:00:50,000 --> 00:00:58,240
+它已经是 batch 级控制状态，但还不是 GPU 可以直接消费的执行输入。
+
+7
+00:00:58,240 --> 00:01:08,000
+接着，ScheduleBatch 被压成 ForwardBatch：input ids、positions、sequence lengths、KV cache locations 和 attention metadata 被重新组织。
+
+8
+00:01:08,000 --> 00:01:19,000
+这一步跨过控制面到执行面的边界，成为 ModelRunner 可消费的设备执行信息。
+
+9
+00:01:19,000 --> 00:01:32,640
+高层调度对象和低层 forward metadata 不是同一个东西换名字。这里是概念化代码锚点，不等同于逐行源码。

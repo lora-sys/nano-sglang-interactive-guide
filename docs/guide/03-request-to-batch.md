@@ -6,7 +6,17 @@
 
 真实源码自己写得非常清楚：`ScheduleBatch` 由 `Scheduler` 管理，主要是 CPU 上的高层调度信息；随后它被转换成 `ForwardBatch`，后者由 `ModelRunner` 消费，主要携带 GPU tensor 侧需要的数据。
 
-<HtmlLab src="/labs/03-request-to-batch.html" title="Lab 03 · Batch Morph" :height="580" />
+## 先看动画：Req 如何跨过控制面到执行面边界
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/request-to-batch-dataflow.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/request-to-batch-dataflow.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 Req、ScheduleBatch、ForwardBatch 字段均是**概念化代码锚点，不等同于逐行源码或完整生产 batch layout**。它强调的是对象归属边界：`request control state → scheduler batch decision → device-ready forward metadata`。
+
+<HtmlLab src="/labs/03-request-to-batch.html" title="Lab 03 · Batch Morph" :height="700" />
 
 ## 为什么不让 Scheduler 直接操作 GPU tensors？
 

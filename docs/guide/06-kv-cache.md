@@ -16,7 +16,7 @@ Autoregressive decode 每生成一个新 token，都需要访问之前 token 的
 
 > 动画中的 block table、capacity、内部碎片和 admission 关系是**概念化代码锚点，不等同于逐行源码、具体 backend 布局或性能基准**。它强调：可用 physical blocks 约束 Scheduler 还能接纳的 token 与请求数量。
 
-<HtmlLab src="/labs/06-kv-cache.html" title="Lab 06 · KV Block Allocator" :height="610" />
+<HtmlLab src="/labs/06-kv-cache.html" title="Lab 06 · KV Block Allocator" :height="710" />
 
 ## 从“连续大数组”切到“token/block 映射”
 

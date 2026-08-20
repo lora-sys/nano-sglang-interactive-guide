@@ -4,7 +4,17 @@
 
 Model forward 给你的不是“答案 token”，而是一组 logits。Sampler 才把 logits 变成 next token。
 
-<HtmlLab src="/labs/09-sampling.html" title="Lab 09 · Sampling Distribution" :height="620" />
+## 先看动画：先重塑概率，再过滤候选，最后采样
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/sampling-distribution.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/sampling-distribution.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 logits、概率条和 token 卡片是**概念化代码锚点，不等同于逐行源码、真实 tokenizer vocabulary 或某个模型的真实概率**。它强调的处理顺序是：`logits → temperature scaling → top-k/top-p filtering → renormalize → sample`。
+
+<HtmlLab src="/labs/09-sampling.html" title="Lab 09 · Sampling Distribution" :height="710" />
 
 ## 四个最重要的旋钮
 

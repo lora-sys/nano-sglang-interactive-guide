@@ -6,7 +6,17 @@
 
 **Continuous Batching** 的核心是：每个 decoding step 都有机会重新决定本轮 batch。
 
-<HtmlLab src="/labs/04-scheduler.html" title="Lab 04 · Continuous Batching" :height="620" />
+## 先看动画：短请求完成后，slot 为什么能立刻复用
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/continuous-batching-reclaim-admit.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/continuous-batching-reclaim-admit.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 request、slot、waiting queue 和 capacity 是**概念化代码锚点，不等同于逐行源码、生产调度策略或真实吞吐基准**。它强调的最小循环是：`finish → reclaim slot → admit waiting request → next decode step`。
+
+<HtmlLab src="/labs/04-scheduler.html" title="Lab 04 · Continuous Batching" :height="760" />
 
 ## Scheduler 真正在平衡什么？
 

@@ -6,7 +6,7 @@
 
 目标：验证“共享 prefix workload 下，prefix cache 能减少重复 prefill 工作”。
 
-<HtmlLab src="/labs/13-capstone.html" title="Lab 13 · Prefix Reuse Benchmark Designer" :height="690" />
+<HtmlLab src="/labs/13-capstone.html" title="Lab 13 · Prefix Reuse Benchmark Designer" :height="860" />
 
 ## 先写实验，不要先写结论
 

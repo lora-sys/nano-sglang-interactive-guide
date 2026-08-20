@@ -13,7 +13,17 @@ SGLang 现在已经是很大的工程。入门最容易犯的错，是把所有�
 v0.5.17 开始加入初步 Rust frontend，把网络 ingress 到“tokenized request 交给 GPU scheduler”这一段逐步迁到 Rust。它不会让下面的 Scheduler / ModelRunner 学习路径失效，但你要知道：**TokenizerManager 不再是所有部署形态下唯一可能的 frontend 实现。**
 :::
 
-<HtmlLab src="/labs/02-runtime-architecture.html" title="Lab 02 · Runtime Router" :height="560" />
+## 先看动画：四个角色如何交接一条 request
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/runtime-lifecycle-request-trace.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/runtime-lifecycle-request-trace.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的角色、状态字段和控制面/执行面分界是**概念化代码锚点，不等同于逐行源码、真实 GPU trace 或性能基准**。它强调状态所有权如何从文本入口，经过 Scheduler 的 batch 决策，交给 ModelRunner 的 execution metadata，再回到流式输出。
+
+<HtmlLab src="/labs/02-runtime-architecture.html" title="Lab 02 · Runtime Router" :height="780" />
 
 ## 为什么要多进程/多角色？
 
