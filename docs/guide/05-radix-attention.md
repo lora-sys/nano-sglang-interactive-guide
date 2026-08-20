@@ -4,6 +4,16 @@
 
 很多真实 workload 会重复相同 prompt prefix：system prompt、few-shot examples、多轮对话历史、RAG 模板。普通做法每次都重新 prefill；SGLang 的代表性设计是 **RadixAttention**：用 radix tree 组织 prefix KV cache，让共享前缀自动匹配与复用。
 
+## 先看动画：最长连续 token 前缀如何变成 KV 复用
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/radix-attention-prefix-reuse.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/radix-attention-prefix-reuse.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 token、树节点和工作量公式都是**概念化代码锚点，不等同于逐行源码执行**。它说明的关键不变量是：最长连续 token 前缀命中后，才可以复用对应 prefix KV，并将未命中的 suffix 交给 Scheduler extend。
+
 <HtmlLab src="/labs/05-radix-attention.html" title="Lab 05 · Radix Tree Prefix Reuse" :height="650" />
 
 ## 直觉：缓存的不是“字符串”，而是计算结果

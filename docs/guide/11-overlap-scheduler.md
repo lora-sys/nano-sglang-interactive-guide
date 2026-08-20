@@ -6,6 +6,16 @@ Serving 的隐形成本经常不在 kernel 本身，而在 kernel 之间的空�
 
 SGLang 强调低开销 CPU scheduler，其中一个核心工程方向就是让**下一步 CPU scheduling 与当前步 GPU execution 重叠**。
 
+## 先看动画：Overlap 隐藏空洞，但慢侧仍决定稳态节拍
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/overlap-scheduler-steady-cadence.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/overlap-scheduler-steady-cadence.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 CPU/GPU 时间线和公式是**概念化代码锚点，不等同于逐行源码或真实 kernel timeline**。它强调的结论是：第一步保留启动成本，后续由 `max(CPU prepare, GPU forward)` 决定理想稳态节拍。
+
 <HtmlLab src="/labs/11-overlap-scheduler.html" title="Lab 11 · CPU/GPU Overlap Timeline" :height="580" />
 
 ## 串行时间线 vs 重叠时间线
