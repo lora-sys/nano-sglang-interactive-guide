@@ -98,17 +98,23 @@ Scheduler 指针在 P1、P2、P3、P4 间移动；每个 chunk 完成后的空�
 
 - **Hook**：draft 一次给出 4 个 token，target 能否把四个都当作结果？
 - **Key insight**：target 批量 verify 后，只能免费推进从当前位置起的**连续 accepted prefix**。
-- **Target length**：约 72 秒。
+- **Target length**：74.32 秒（三段实测旁白总和）。
 
-## Scene 1：预测问题（0–10s）
+| 场景 | 音频文件 | 实测时长 |
+|---|---|---:|
+| 1 | `speculative_decoding/audio/scene1_hook.wav` | 23.44s |
+| 2 | `speculative_decoding/audio/scene2_verify.wav` | 24.80s |
+| 3 | `speculative_decoding/audio/scene3_tradeoff.wav` | 26.08s |
+
+## Scene 1：预测问题（23.44s）
 
 Draft model 递出 d1–d4 token cards；target model 仍是灰色。提出“预测连续接受长度，而不是数绿卡数量”。
 
-## Scene 2：Draft proposal（10–25s）
+## Scene 2：Draft proposal 与 Target verify（24.80s）
 
 四张紫色候选卡排成一列进入 target verify gate。整个 proposal 同时被框起来，强调批量验证。
 
-## Scene 3：连续接受或首个拒绝（25–48s）
+## Scene 3：连续前缀与收益边界（26.08s）
 
 默认种子下 d1–d4 依次变青，accepted prefix 计数器增长。随后展示一个微型反事实：d3 变红时，d4 即使留在队列里也不能越过 d3 单独累加。
 
