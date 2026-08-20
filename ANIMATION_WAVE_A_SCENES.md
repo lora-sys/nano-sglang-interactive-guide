@@ -169,3 +169,7 @@ CPU 变为 10ms，GPU 为 4ms；红色瓶颈从 GPU 翻转到 CPU。强调 overl
 ## 下一波准备：06 · KV Cache 分页分配
 
 KV Cache 动画采用三段普通话旁白，总时长 **80.20 秒**。`scene1_paging.wav` 为 28.28 秒，解释逻辑序列与 physical block 的解耦；`scene2_blocks.wav` 为 26.64 秒，推导 `ceil(18/4)=5`、capacity=20 与 2 个内部碎片；`scene3_admission.wav` 为 25.28 秒，连接 allocator 可用 block、prefix reuse、回收与 Scheduler admission。后续视频实现必须以这些实测时长作为三场 ManimCE 场景的同步合同。
+
+## 下一波准备：08 · Structured Outputs / Grammar Mask
+
+Structured Outputs 动画采用三段普通话旁白，总时长 **71.08 秒**。`scene1_pipeline.wav` 为 23.72 秒，解释 `logits → grammar mask → sampler`；`scene2_state.wav` 为 21.96 秒，演示 JSON FSM state 如何改变 allowed set；`scene3_boundary.wav` 为 25.40 秒，澄清 grammar 只删除非法路径而不替代 logits。后续三场 ManimCE 实现必须以这些实测时长作为同步合同，并明确标注为概念化代码锚点。
