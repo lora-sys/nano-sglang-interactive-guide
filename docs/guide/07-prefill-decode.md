@@ -4,6 +4,16 @@
 
 LLM inference 看似都是 forward，但 prefill 和 decode 的计算形态完全不同。
 
+## 先看动画：Chunked Prefill 如何增加重新调度边界
+
+<video controls playsinline preload="metadata" style="width:100%;border:1px solid #26304A;border-radius:12px;background:#080B14">
+  <source src="/animations/chunked-prefill-scheduler-boundaries.mp4" type="video/mp4">
+  <track kind="subtitles" src="/animations/chunked-prefill-scheduler-boundaries.zh-CN.srt" srclang="zh-CN" label="中文" default>
+  你的浏览器不支持 HTML5 视频播放。
+</video>
+
+> 动画中的 token 条、Decode turn 和 chunk 公式是**概念化代码锚点，不等同于逐行源码或真实性能基准**。它可视化的重点是：chunk size 改变 Scheduler 获得重新决策机会的频率，而不减少总 prompt token。
+
 - **Prefill / Extend**：一次处理很多输入 token，矩阵更“厚”，通常更 compute-heavy。
 - **Decode**：每个 request 一步通常只增加一个 token，但要读大量历史 KV，更偏 memory/latency-sensitive。
 

@@ -31,3 +31,7 @@
 `/animations/overlap-scheduler-steady-cadence.mp4` 已完成 1080p60 定稿，含普通话中文旁白、内嵌 `mov_text` 中文字幕及独立 `overlap-scheduler-steady-cadence.zh-CN.srt`。三场 ManimCE 动画先展示 `CPU=4ms`、`GPU=8ms` 的四步串行 48ms 时间线，再展示 CPU prepare 与 GPU forward 的重叠，以及 `max(4,8)=8ms` 的稳态节拍，最后通过 `CPU=10ms`、`GPU=4ms` 的反事实说明瓶颈翻转到 CPU。低画质总视觉时长为 81.598s，三段实测旁白总时长为 81.080s，误差 0.518s，符合一秒内同步门槛。代表帧审阅确认轨道、公式和双场景对比均清晰、无溢出。
 
 第 11 章已嵌入本地视频与中文字幕轨，并标注为概念化时间线与代码锚点。动画资源加入后，`npm run check` 再次通过。
+
+## 首批原理动画：Chunked Prefill
+
+`/animations/chunked-prefill-scheduler-boundaries.mp4` 已完成 1080p60 定稿，附普通话中文旁白、内嵌字幕和独立 SRT。动画通过长 2048-token Prefill、四个 512-token chunk 与 Decode peer turn、再到两个 1024-token chunk 的反事实，解释 chunk size 改变的是重新调度边界而非总 token。低画质总视觉时长为 80.530s，三段实测旁白总时长为 80.280s，误差 0.250s。第 07 章已嵌入本地视频与字幕轨；加入资源后，`npm run check` 通过。

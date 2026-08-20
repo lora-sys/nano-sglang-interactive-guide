@@ -62,17 +62,23 @@ B 的 token 指针沿树移动。前 6 次命中依次变青，第 7 个 token �
 
 - **Hook**：切块没有减少 token，为什么 Decode 请求反而多了插队机会？
 - **Key insight**：chunk size 改变的是单次 bounded prefill 和 Scheduler 重新决策的频率。
-- **Target length**：约 74 秒。
+- **Target length**：80.28 秒（三段实测旁白总和）。
 
-## Scene 1：一个过长的 Prefill（0–12s）
+| 场景 | 音频文件 | 实测时长 |
+|---|---|---:|
+| 1 | `chunked_prefill/audio/scene1_workloads.wav` | 25.96s |
+| 2 | `chunked_prefill/audio/scene2_boundaries.wav` | 25.84s |
+| 3 | `chunked_prefill/audio/scene3_tradeoff.wav` | 28.48s |
+
+## Scene 1：一个过长的 Prefill（25.96s）
 
 2048 个 token 被压缩成一条长黄色条；一个小的 Decode peer 在旁边等待。问题：一个长条占住一次调度，会发生什么？
 
-## Scene 2：切成四个 512-token chunk（12–30s）
+## Scene 2：切成四个 512-token chunk 与 Decode 边界（25.84s）
 
 长条依次切成 P1 到 P4；每块标注 512。镜头明确 token 总量仍为 2048。
 
-## Scene 3：每个边界可重新选择（30–49s）
+## Scene 3：Chunk 粒度的反事实与折中（28.48s）
 
 Scheduler 指针在 P1、P2、P3、P4 间移动；每个 chunk 完成后的空档，蓝绿色 Decode `D` 获得一个 turn。不是并行时间线，而是重新调度边界。
 
